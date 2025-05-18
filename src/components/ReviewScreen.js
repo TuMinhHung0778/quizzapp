@@ -17,7 +17,7 @@ export default function ReviewScreen({ userAnswers, restartQuiz }) {
           </ul>
         </div>
       ))}
-      <button onClick={restartQuiz}>Back to Start</button>
+      <button onClick={restartQuiz} className="quiz-button">Back to Start</button>
     </div>
   );
 }

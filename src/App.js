@@ -23,49 +23,45 @@ const App = () => {
     const res = await fetch('https://opentdb.com/api.php?amount=5&type=multiple');
     const data = await res.json();
 
-    const formattedQuestions = data.results.map((q) => ({
+    const formatted = data.results.map((q) => ({
       question: q.question,
       correct: q.correct_answer,
-      answers: [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5),
+      answers: [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5)
     }));
 
-    setQuestions(formattedQuestions);
+    setQuestions(formatted);
   };
 
   const handleAnswerClick = (answer) => {
     setSelectedAnswer(answer);
-
     const isCorrect = answer === questions[current].correct;
-    if (isCorrect) {
-      setScore(score + 1);
+    if (isCorrect) setScore(score + 1);
+
+    setUserAnswers([...userAnswers, {
+      question: questions[current].question,
+      correct: questions[current].correct,
+      selected: answer,
+      answers: questions[current].answers
+    }]);
+  };
+
+  const goToNext = () => {
+    if (current + 1 < questions.length) {
+      setCurrent(current + 1);
+      setSelectedAnswer(null);
+    } else {
+      setQuizCompleted(true);
     }
-
-    setUserAnswers((prev) => [
-      ...prev,
-      {
-        question: questions[current].question,
-        selected: answer,
-        correct: questions[current].correct,
-        answers: questions[current].answers,
-      },
-    ]);
-
-    setTimeout(() => {
-      if (current + 1 < questions.length) {
-        setCurrent(current + 1);
-        setSelectedAnswer(null);
-      } else {
-        setQuizCompleted(true);
-      }
-    }, 1000);
   };
 
   const restartQuiz = () => {
     setQuizStarted(false);
-    setQuizCompleted(false);
+    setQuestions([]);
     setCurrent(0);
-    setScore(0);
     setSelectedAnswer(null);
+    setScore(0);
+    setStartTime(null);
+    setQuizCompleted(false);
     setUserAnswers([]);
     setShowReview(false);
   };
@@ -89,7 +85,7 @@ const App = () => {
     );
 
   if (questions.length === 0 || !questions[current])
-    return <p style={{ textAlign: 'center' }}>Loading questions...</p>;
+    return <p className="screen-center">Loading questions...</p>;
 
   return (
     <QuestionCard
@@ -100,9 +96,9 @@ const App = () => {
       handleAnswerClick={handleAnswerClick}
       selectedAnswer={selectedAnswer}
       correctAnswer={questions[current].correct}
+      goToNext={goToNext}
     />
   );
 };
 
 export default App;
-// App.js

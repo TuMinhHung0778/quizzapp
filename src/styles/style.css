@@ -6,6 +6,26 @@ body {
   padding: 20px;
 }
 
+/* button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+} */
+
+.screen-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #1c1c3c;
+  color: white;
+  padding: 20px;
+}
+
 button {
   padding: 10px 20px;
   margin: 10px;
@@ -15,13 +35,23 @@ button {
   cursor: pointer;
 }
 
-button.correct {
-  background-color: #4CAF50;
+
+.next-btn {
+  background-color: gray;
+  margin-top: 20px;
+}
+
+.next-btn.active {
+  background-color: darkred;
+}
+
+.correct {
+  background-color: green;
   color: white;
 }
 
-button.wrong {
-  background-color: #f44336;
+.wrong {
+  background-color: darkred;
   color: white;
 }
 
@@ -31,6 +61,14 @@ button.wrong {
   width: 60%;
 }
 
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+}
+
 .review-screen, .result-screen, .start-screen, .question-card {
   background: #29294d;
   padding: 20px;
@@ -38,4 +76,16 @@ button.wrong {
   margin: auto;
   width: 90%;
   max-width: 600px;
+}
+
+.quiz-button {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.quiz-button:hover {
+  background-color: darkred;
 }

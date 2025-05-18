@@ -7,7 +7,8 @@ export default function QuestionCard({
   totalQuestions,
   handleAnswerClick,
   selectedAnswer,
-  correctAnswer
+  correctAnswer,
+  goToNext
 }) {
   return (
     <div className="question-card">
@@ -31,6 +32,13 @@ export default function QuestionCard({
             />
           );
         })}
+        <button
+          className={selectedAnswer ? "next-btn active" : "next-btn"}
+          onClick={goToNext}
+          disabled={!selectedAnswer}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
